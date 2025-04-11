@@ -4,14 +4,13 @@ Large Language Models (LLMs) like GPT-4 have revolutionized the field of
 natural language processing, enabling a wide range of applications from text
 generation to complex problem-solving. However, despite their impressive
 capabilities, LLMs still face significant challenges when it comes to
-arithmetic and mathematical operations. In this blog post, we will explore
-some of the key issues that LLMs encounter in these areas, provide examples
-of common errors, and show how an agentic approach can help us get better
-results.
+arithmetic and mathematical operations. This article explores some of the key
+issues that LLMs encounter in these areas, provides examples of common
+errors, and shows how an agentic approach can help provide better results.
 
-The tutorial will make use of AutoGen and will show you how to improve
-mathematical operations in two ways. The first one is by giving a tool to an
-LLM allowing it to perform simple calculations. The second implementation is an
+The tutorial makes use of AutoGen and shows you how to improve mathematical
+operations in two ways. The first is by giving a tool to an LLM allowing it
+to perform simple calculations. The second is the implementation of an
 agentic system that can perform various mathematical tasks. The code in this
 tutorial can be found
 [here](https://github.com/mzat-msft/tutorials/tree/main/llm-math).
@@ -19,22 +18,21 @@ tutorial can be found
 
 ## Problems
 
-### Inherent Limitations in Next Token Prediction
+### Inherent limitations in next token prediction
 
-One of the primary challenges LLMs face in arithmetic operations is the
+One of the primary challenges that LLMs face in arithmetic operations is the
 inherent limitation in next token prediction. LLMs are trained on vast
 amounts of text data, which primarily consists of natural language rather
 than precise numerical data. As a result, these models often struggle with
 tasks that require exact numerical calculations, such as addition,
 subtraction, multiplication, and division.
 
-> When asked to perform a simple arithmetic operation like "What is 1234 +
-> 5678?", an LLM might provide an incorrect answer such as "6911" instead of
-> the correct answer "6912". This error occurs because the model relies on
-> pattern recognition rather than precise
-> calculation.
+For example, when asked to perform a simple arithmetic operation like “What
+is 1234 + 5678?”, an LLM might provide an incorrect answer such as “6911”
+instead of the correct answer “6912”. This error occurs because the model
+relies on pattern recognition rather than precise calculation.
 
-### Contextual Understanding of Mathematical Problems
+### Contextual understanding of mathematical problems
 
 LLMs excel at understanding and generating human language, but they often
 struggle with the contextual understanding required for solving mathematical
@@ -43,13 +41,13 @@ a deep understanding of the underlying concepts. LLMs, however, may not
 always grasp the context or the logical sequence of steps needed to arrive at
 the correct solution.
 
-> Consider a word problem: "If a train travels at 60 km/h for 2 hours and then
-> at 80 km/h for 3 hours, what is the total distance traveled?" An LLM might
-> incorrectly calculate the total distance by simply adding the speeds (60 +
-> 80) and multiplying by the total time (5 hours), resulting in an incorrect
-> answer of 700 km instead of the correct answer of 340 km.
+For example, consider a word problem: “If a train travels at 60 km/h for 2
+hours and then at 80 km/h for 3 hours, what is the total distance traveled?”
+An LLM might incorrectly calculate the total distance by simply adding the
+speeds (60 + 80) and multiplying by the total time (5 hours), resulting in an
+incorrect answer of 700 km instead of the correct answer of 340 km.
 
-### Lack of Specialized Training Data
+### Lack of specialized training data
 
 Another significant challenge is the lack of specialized training data for
 mathematical operations. While LLMs are trained on diverse datasets that
@@ -58,11 +56,11 @@ high-quality mathematical content. This lack of specialized training data can
 hinder their ability to accurately perform mathematical operations and solve
 complex problems.
 
-> When asked to solve a quadratic equation like "Solve for x: $(x^2 - 5x + 6 = 0)$",
-> an LLM might provide an incorrect solution such as "x = 2" without
-> recognizing that there are two solutions: $(x = 2)$ and $(x = 3)$.
+> When asked to solve a quadratic equation like “Solve for $x$: $(x^2 - 5x +
+> 6 = 0)$”, an LLM might provide an incorrect solution such as “"$x = 2$”
+> without recognizing that there are two solutions: $(x = 2)$ and $(x = 3)$.
 
-### Difficulty in Handling Symbolic Mathematics
+### Difficulty in handling symbolic mathematics
 
 Symbolic mathematics, which involves manipulating mathematical symbols and
 expressions, poses a unique challenge for LLMs. Unlike natural language,
@@ -75,72 +73,79 @@ their outputs.
 > an LLM might incorrectly expand it to $2x^2 - 8x + 3x - 12$ instead
 > of the correct expansion $2x^2 - 5x - 12$.
 
-### Tokenization and Its Impact on Arithmetic
+### Tokenization and its impact on arithmetic
 
 Tokenization, the process of dividing input text into tokens, plays a crucial
 role in how LLMs process and understand numerical data. Different
-tokenization schemes can significantly impact on the model's ability to
-perform arithmetic operations accurately.
+tokenization schemes can significantly impact the model's ability to perform
+arithmetic operations accurately.
 
 LLMs like GPT-3.5 and GPT-4 use different tokenization strategies for
-numbers. Some models tokenize numbers digit-by-digit, while others use byte
+numbers. Some models tokenize numbers digit by digit, while others use byte
 pair encoding (BPE) to tokenize entire numbers or groups of digits. This
 choice can lead to varying performance in arithmetic tasks. For instance,
-right-to-left tokenization (enforced by comma separating numbers at
-inference time) has been shown to improve performance in numerical
-reasoning tasks [(source)](https://arxiv.org/abs/2502.08680).
+right-to-left tokenization (enforced by comma separating numbers at inference
+time) has been shown to improve performance in numerical reasoning tasks
+[(read more about this topic here)](https://arxiv.org/abs/2502.08680).
 
-## Potential Solutions and Future Directions
+## Potential solutions and future directions
 
 Despite these challenges, there are several potential solutions and future
 directions that can help improve the performance of LLMs in arithmetic and
 mathematical operations:
 
-### Reasoning Techniques
+### Reasoning techniques
 
 One promising approach to addressing these challenges is the use of prompts
-that steer the LLM to perform step-by-step reasoning. Chain of
-Thought (CoT) reasoning [(source)](https://arxiv.org/abs/2201.11903)
-involves generating a series of intermediate reasoning steps that lead to the
-final answer. This method helps LLMs break down complex problems into
-manageable parts, improving their accuracy and reliability in arithmetic and
-mathematical tasks. Sampling multiple Chain-of-Thought paths and then select
-the most consistent answer is the approach explored by self-consistency
-[(source)](https://arxiv.org/abs/2203.11171).
+that steer the LLM to perform step-by-step reasoning. Chain-of- Thought (CoT)
+reasoning [(more information about this topic
+here)](https://arxiv.org/abs/2201.11903) involves generating a series of
+intermediate reasoning steps that lead to the final answer. This method helps
+LLMs break down complex problems into manageable parts, improving their
+accuracy and reliability in arithmetic and mathematical tasks. Sampling
+multiple chain-of-thought paths and then selecting the most consistent answer
+is the approach explored by self-consistency [(more on this topic
+here)](https://arxiv.org/abs/2203.11171).
 
-### Incorporating Specialized Training Data
+Reasoning models released by OpenAI such as O1 or O3-mini have built-in
+chain-of-thought capabilities, which do not require users to explicitly cue
+for CoT in their prompting. See [this
+article](https://techcommunity.microsoft.com/blog/Azure-AI-Services-blog/prompt-engineering-for-openai%E2%80%99s-o1-and-o3-mini-reasoning-models/4374010)
+for a nice overview of how to get the best out of these models.
+
+### Incorporating specialized training data
 
 By incorporating more high-quality mathematical content into the training
 datasets, researchers can help LLMs develop a better understanding of
 mathematical concepts and improve their accuracy in performing arithmetic
 operations. This can also be done by fine-tuning existing pre-trained models
-[(source)](https://arxiv.org/abs/2402.00157).
+[(more information on this topic here)](https://arxiv.org/abs/2402.00157).
 
-### Developing Hybrid Models
+### Developing hybrid models
 
 Combining LLMs with specialized mathematical models or symbolic computation
 engines can leverage the strengths of both approaches. Hybrid models can use
 LLMs for natural language understanding and symbolic computation engines for
 precise mathematical calculations.
 
-### Enhancing Contextual Understanding
+### Enhancing contextual understanding
 
 Improving the contextual understanding of LLMs through advanced training
 techniques and fine-tuning can help them better interpret and solve complex
 mathematical problems.
 
-### Interactive Problem-Solving
+### Interactive problem solving
 
 Implementing interactive problem-solving frameworks that allow users to guide
 LLMs through the steps of a mathematical problem can enhance their accuracy
 and reliability.
 
-## Agentic AI to Perform Calculations
+## Using agentic AI to perform calculations
 
-Agentic AI refers to artificial intelligence systems that exhibit a degree of
+Agentic AI refers to Artificial Intelligence systems that exhibit a degree of
 autonomy and decision-making capabilities, often designed to perform tasks
 without continuous human intervention. These systems can be particularly
-beneficial in enhancing arithmetic computations within large language models
+beneficial in enhancing arithmetic computations within Large Language Models
 (LLMs). By integrating agentic AI, LLMs can autonomously identify and execute
 complex arithmetic operations, ensuring higher accuracy and efficiency. This
 integration allows the models to handle a broader range of mathematical
@@ -148,37 +153,36 @@ problems, from basic calculations to advanced numerical analysis, thereby
 improving their overall performance and reliability in tasks requiring
 precise arithmetic computations.
 
-We will implement an agent using
-[AutoGen](https://microsoft.github.io/autogen/stable/index.html). We will use
+To demonstrate, we implement an agent using
+[AutoGen](https://microsoft.github.io/autogen/stable/index.html). We use
 version 0.4.8.
 
 
 ### Prerequisites
 
-To be able to follow this tutorial, we first need to install the relevant
-packages:
+To enable this tutorial, we first need to install the relevant packages:
 
 ```bash
 pip install autogen-agentchat autogen-ext[openai,azure]
 ```
 
-These are the packages needed to follow this tutorial which uses a model
-deployed on Azure OpenAI. We also provide a
+These packages are needed to use a model deployed on Azure OpenAI. We also
+provide a
 [requirements.txt](https://github.com/mzat-msft/tutorials/blob/main/llm-math/requirements.txt)
-with all the packages needed to run the scripts.
+file with all the packages needed to run the scripts.
 
-### Assistant Agent
+### Assistant agent
 
-We will start with a very simple example: compute the sum of 30 random
+We start with a very simple example: Compute the sum of 30 random
 numbers.
 
 The implementation of this first agent is found in
 [dumbagent.py](https://github.com/mzat-msft/tutorials/blob/main/llm-math/dumbagent.py).
 
-AutoGen provides a built-in `AssistantAgent` which is an agent that uses a
-language model and can to call tools. To provide the language model
-to the agent, we first need to initialize it. As we will use an Azure OpenAI
-model, we need to do the following:
+AutoGen provides a built-in `AssistantAgent`, which is an agent that uses a
+language model and can call tools. To provide the language model to the
+agent, we first need to initialize it. As we are using an Azure OpenAI model,
+we use the following code:
 
 ```python
 from autogen_ext.models.openai import AzureOpenAIChatCompletionClient
@@ -207,7 +211,7 @@ agent = AssistantAgent(
 ```
 
 Agents are invoked with the `on_messages()` method. There are different
-message types in `AutoGen`, we will use `TextMessage` that implements a
+message types in `AutoGen`, and we use `TextMessage` that implements a
 simple text message. The method `on_messages()` also requires an argument
 `cancellation_token`. This is a token used to cancel pending async calls.
 
@@ -234,7 +238,7 @@ async function, therefore it must be *awaited*. The agent response is then
 printed to screen, and we also print the correct response computed with a
 Python function.
 
-If we run `dumbagent.py` we will get the following output:
+If we run `dumbagent.py` we get the following output:
 
 ```bash
 $ python dumbagent.py
@@ -260,15 +264,15 @@ The first line in the output is an empty list `[]`. This is the result of
 processing the task internally before responding. We will see later that it
 will be different when we implement tools or other agents.
 
-The agent goes into a lengthy monologue but in the end it gives us a wrong
-response. This is expected as language models are not great in mathematical
+The agent goes into a lengthy monologue, but in the end, it gives us a wrong
+response. This is expected as language models are not great with mathematical
 tasks.
 
-### Use Chain-of-Thought
+### Using chain-of-thought
 
-Since we mentioned it above, can we use CoT to get the correct result?
-We can try to change the prompt to be explicit in the step-by-step
-calculation. For instance, we can ask the following:
+As we mentioned earlier, can we use CoT to get the correct result? We can try
+to change the prompt to be explicit in the step-by-step calculation. For
+instance, we can ask the following:
 
 ```python
 response = await agent.on_messages(
@@ -366,17 +370,17 @@ Correct response:  15.48758499076025
 
 As we can see, CoT did not help here.
 
-### Use a Tool
+### Using a tool
 
 The easiest way we can improve the assistant agent response is by providing a
 tool to perform the calculation. If the agent can call an external
 deterministic tool to perform the computation, then we should not have
-problem with this type of tasks.
-The implementation of this section can be found in
-[sumagent.py](https://github.com/mzat-msft/tutorials/blob/main/llm-math/sumagent.py)
+problems with this type of task. The implementation of this section can be
+found in
+[sumagent.py](https://github.com/mzat-msft/tutorials/blob/main/llm-math/sumagent.py).
 
-AutoGen allows agents to call python functions as tools. We can define a
-simple function that takes a python list as an input and returns the sum of
+AutoGen allows agents to call Python functions as tools. We can define a
+simple function that takes a Python list as an input and returns the sum of
 its elements:
 
 ```python
@@ -413,25 +417,25 @@ Yes! Now the answer is correct. As promised, now the inner messages are much
 more interesting. We see that the agent performs a call to the function, and
 it passes the correct arguments.
 
-### Use a Team of Agents
+### Using a team of agents
 
-Until now, the things our agent can do are quite limited: it can only perform
-summations. This is useful, but we can do more. AutoGen allow us to create a
+Until now, the things our agent can do are quite limited: It can only perform
+summations. This is useful, but we can do more. AutoGen allows us to create a
 much more powerful implementation by properly using an agentic approach. We
-will implement now a team of agents: our assistant will be joined by an agent
-that is able to use Python to perform computations! This will allow the
-assistant to solve mathematical tasks with the help of its new teammate. Our
+now implement a team of agents: Our assistant will be joined by an agent that
+is able to use Python to perform computations! This allows the assistant to
+solve mathematical tasks with the help of its new teammate. Our
 implementation can be found in
 [computeteam.py](https://github.com/mzat-msft/tutorials/blob/main/llm-math/computeteam.py).
 
-AutoGen already implemented an agent that has access to the Python. This
-agent reads the context and searches for Python code blocks and executes
+AutoGen already implemented an agent that has access to the Python shell.
+This agent reads the context and searches for Python code blocks and executes
 them.
 
 **WARNING**: Executing arbitrary code is very dangerous! For this reason,
 this agent must be able to execute code in a restricted environment. AutoGen
-allows us to define where to execute the code and provides a Docker executor.
-This is what we will use.
+allows us to define where to execute the code and provides a Docker executor,
+so this is what we use.
 
 We can initialize the code executor agent like this:
 
@@ -448,12 +452,12 @@ await code_executor.start()
 We need to `start()` the agent so that the Docker container is initialized
 and we can use it to run Python code.
 
-Now, we need to define the team structure. We will use a very simple
+Now, we need to define the team structure. We use a very simple
 implementation: `RoundRobinGroupChat`. This basically invokes each agent in a
-sequential manner. We will put the condition that the team will stop when the
+sequential manner. We add the condition for which the team stops when the
 code executor answers with a text message.
 This is quite a simplistic implementation but introduces most of the basic
-concepts for Agentic AI.
+concepts for agentic AI.
 
 ```python
 from autogen_agentchat.conditions import TextMessageTermination
@@ -471,9 +475,9 @@ team = RoundRobinGroupChat(
 ```
 
 This is not enough. We need to instruct our assistant that to answer a
-question it can output some Python. The code executor will take the assistant
-output and run any Python code blocks that it finds.
-The assistant is instructed like this:
+question it can output some Python code. The code executor takes the
+assistant output and runs any Python code blocks that it finds. The assistant
+is instructed like this:
 
 ```python
 assistant = AssistantAgent(
@@ -512,13 +516,13 @@ code_executor:  12.801264313425042
 Correct response:  12.801264313425042
 ````
 
-Let us see what happens here. The task of computing the sum is given to the
+Let's see what's happening here. The task of computing the sum is given to the
 assistant. The assistant writes a function to compute the answer and passes
 the turn to the next agent in the team, which is the code executor agent. The
 code executor runs the function and returns what the function prints. We get
 the correct answer in the end.
 
-With this approach we traded simplicity for more flexibility. Using the tool
+With this approach we have traded simplicity for more flexibility. Using the tool
 technique allows us to get the correct result, but at the expense of having
 to write a tool for every capability. In fact, we would need to add a
 `subtract_tool`, `multiply_tool`, and so on.
@@ -526,24 +530,24 @@ With the code executor approach, the architecture is bit more complex, but
 we do not need to modify the system to add more operations.
 
 
-## Conclusions
+## Conclusion
 
-In this blog post, we explored the challenges that LLMs
-face when it comes to arithmetic and mathematical operations. Despite
+In this article, we have explored the challenges that LLMs
+face with arithmetic and mathematical operations. Despite
 their impressive capabilities in natural language processing, LLMs often
 struggle with numerical precision, contextual understanding, and symbolic
-mathematics. We discussed several potential solutions to these challenges,
-including Chain of Thought reasoning, incorporating specialized training
+mathematics. We have discussed several potential solutions to these challenges,
+including chain-of-thought reasoning, incorporating specialized training
 data, developing hybrid models, enhancing contextual understanding, and
 implementing interactive problem-solving frameworks.
 
-We also demonstrated how an agentic approach, using tools like AutoGen, can
+We have also demonstrated how an agentic approach, using tools like AutoGen, can
 significantly improve the performance of LLMs in mathematical tasks. By
 integrating agentic AI, we can create systems that autonomously identify and
 execute complex arithmetic operations, ensuring higher accuracy and
 efficiency.
 
-Through practical examples, we showed how to implement an agent that can
+Through practical examples, we have shown how to implement an agent that can
 perform various mathematical tasks, from simple summations to more complex
 computations, by leveraging the strengths of both LLMs and specialized
 mathematical models. This hybrid approach not only enhances the capabilities
@@ -553,3 +557,5 @@ requiring precise arithmetic computations.
 As we continue to develop and refine these techniques, we can look forward to
 even more powerful and reliable AI systems that excel in both natural
 language processing and mathematical problem-solving.
+
+[Marco Zatta is on LinkedIn](https://www.linkedin.com/in/mzatta/)
